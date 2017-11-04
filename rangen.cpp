@@ -24,7 +24,7 @@ template <typename T>
 	}
 
 vector<string> streets_vec;
-map<string, vector<pair<pair<int,int>, pair<int,int> > > > street_line_seg;
+map<string, vector<pair<pair<int,int>, pair<int,int> > > > street_line_seg; 
 set<pair<pair<int,int>, pair<int,int> > > line_seg;
 
 int urandom_fd;
@@ -54,7 +54,7 @@ void generate_street(string &street, int len)
 			ch = (char)('A'+ num);
 		else if(num<=51)
 			ch = (char)('a'+ num-26);
-		else
+		else 
 			ch = ' ';
 		street +=  ch;
 		i++;
@@ -104,7 +104,7 @@ void generate_a_command(string &command)
 	{
 		generate_pair(a,b);
 		insert_pair(command,a,b);
-
+		
 		if(line_seg.find(make_pair(make_pair(preva,prevb), make_pair(a,b))) == line_seg.end())
 		{
 			line_seg.insert(make_pair(make_pair(preva,prevb), make_pair(a,b)));
@@ -151,7 +151,7 @@ void generate_r_command(string &command)
 int main(int argc, char* argv[])
 {
 	int i=1, A=25;
-	urandom_fd = open("/dev/urandom",O_RDONLY);
+	urandom_fd = open("/dev/urandom",O_RDONLY);	
 	while(i < argc)
 	{
 		if(strcmp(argv[i],"-s") == 0)
@@ -183,15 +183,16 @@ int main(int argc, char* argv[])
 	ofstream myfile;
 	while(1)
 	{
-
-
+		
+  		myfile.open ("data.txt");
+		string command = "";
 		while(streets_vec.size() != 0)
 		{
 			command = "";
 			generate_r_command(command);
 			cout<<command<<endl;
 		}
-
+		
 		command = "g";
 		cout<<command;
 
@@ -212,6 +213,6 @@ int main(int argc, char* argv[])
 		myfile.close();
 		sleep(seconds);
 	}
-
+	
 	return 0;
 }
